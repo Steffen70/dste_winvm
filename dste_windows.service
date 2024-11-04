@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenCore Boot Service
+After=network.target
+
+[Service]
+User=spag
+Group=spag
+
+# Command to start the VM
+ExecStart=/workspace/dste_winvm/win_boot.sh
+
+# Automatically restart if the service stops
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
