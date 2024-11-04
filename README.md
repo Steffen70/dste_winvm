@@ -17,4 +17,6 @@ sudo systemctl status dste_windows
 sudo systemctl start dste_windows
 
 # regsvr32 “C:\Program Files (x86)\Windows Photo Viewer\PhotoViewer.dll”
+
+# Get-ChildItem -Path $directory_path -Recurse | Unblock-File
 ```
