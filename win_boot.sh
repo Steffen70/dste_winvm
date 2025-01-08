@@ -19,6 +19,7 @@ SPICE_PORT=5902
 
 # RDP port forwarding (Alternative port to avoid conflicts)
 HOST_RDP_PORT=3390
+HOST_SSH_PORT=2224
 
 args=(
     # Allocate specified RAM to the VM
@@ -48,8 +49,8 @@ args=(
     # Configure network with VirtIO and a specified MAC address
     -device virtio-net-pci,netdev=net0,mac=52:54:00:12:34:56
 
-    # User-mode networking with RDP port forwarding from VM port 3389 to host port 3390
-    -netdev user,id=net0,hostfwd=tcp::"$HOST_RDP_PORT"-:3389
+    # User-mode networking with port forwarding for RDP and SSH
+    -netdev user,id=net0,hostfwd=tcp::"$HOST_RDP_PORT"-:3389,hostfwd=tcp::"$HOST_SSH_PORT"-:22 
 
     # Enable KVM for hardware acceleration
     -enable-kvm
