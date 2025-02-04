@@ -10,6 +10,15 @@ sendkey alt-ctrl-delete
 
 sudo cp ./dste_windows.service /etc/systemd/system/
 
+# Allow QEMU to forward host port 443 by granting CAP_NET_BIND_SERVICE capability - non-root users are not allowed to bind ports below 1024
+which qemu-system-x86_64
+# /usr/bin/qemu-system-x86_64
+
+sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/qemu-system-x86_64
+
+getcap /usr/bin/qemu-system-x86_64
+# /usr/bin/qemu-system-x86_64 cap_net_bind_service=eip
+
 sudo systemctl daemon-reload
 
 sudo systemctl status dste_windows
