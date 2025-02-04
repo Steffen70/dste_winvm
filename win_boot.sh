@@ -49,8 +49,8 @@ args=(
     # Configure network with VirtIO and a specified MAC address
     -device virtio-net-pci,netdev=net0,mac=52:54:00:12:34:56
 
-    # User-mode networking with port forwarding for RDP and SSH
-    -netdev user,id=net0,hostfwd=tcp::"$HOST_RDP_PORT"-:3389,hostfwd=tcp::"$HOST_SSH_PORT"-:22 
+    # User-mode networking with port forwarding for RDP, SSH, and HTTPS (443)
+    -netdev user,id=net0,hostfwd=tcp::"$HOST_RDP_PORT"-:3389,hostfwd=tcp::"$HOST_SSH_PORT"-:22,hostfwd=tcp::443-:443 
 
     # Enable KVM for hardware acceleration
     -enable-kvm
