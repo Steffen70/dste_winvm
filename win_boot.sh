@@ -11,7 +11,7 @@ CPU_THREADS="8"
 
 # Paths for Virtual Disk, Windows Server ISO, and VirtIO ISO
 VMDISK="$SCRIPT_DIR/dste_windows.qcow2"
-# WINDOWS_ISO="$SCRIPT_DIR/en-us_windows_server_2022_updated_oct_2024_x64_dvd_d1a47ecc.iso"  
+# WINDOWS_ISO="$SCRIPT_DIR/en-us_windows_server_2022_updated_oct_2024_x64_dvd_d1a47ecc.iso"
 # VIRTIO_ISO="$SCRIPT_DIR/virtio-win-0.1.262.iso"
 
 # Alternative Spice port to avoid conflicts (5900+5901 => macOS VMs)
@@ -20,6 +20,9 @@ SPICE_PORT=5902
 # RDP port forwarding (Alternative port to avoid conflicts)
 HOST_RDP_PORT=3390
 HOST_SSH_PORT=2224
+
+# SQL Server (MSSQL remote access)
+HOST_SQL_PORT=1433
 
 args=(
     # Allocate specified RAM to the VM
@@ -49,8 +52,8 @@ args=(
     # Configure network with VirtIO and a specified MAC address
     -device virtio-net-pci,netdev=net0,mac=52:54:00:12:34:56
 
-    # User-mode networking with port forwarding for RDP, SSH, and HTTPS (443)
-    -netdev user,id=net0,hostfwd=tcp::"$HOST_RDP_PORT"-:3389,hostfwd=tcp::"$HOST_SSH_PORT"-:22,hostfwd=tcp::443-:443 
+    # User-mode networking with port forwarding for RDP, SSH, HTTPS, and SQL Server
+    -netdev user,id=net0,hostfwd=tcp::"$HOST_RDP_PORT"-:3389,hostfwd=tcp::"$HOST_SSH_PORT"-:22,hostfwd=tcp::443-:443,hostfwd=tcp::"$HOST_SQL_PORT"-:1433
 
     # Enable KVM for hardware acceleration
     -enable-kvm
